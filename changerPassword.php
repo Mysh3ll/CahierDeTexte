@@ -13,6 +13,9 @@ $erreur = Config::get('message/erreur');
 $utilisateur = new User();
 if (!$utilisateur->etreLogger() && !diffDate($utilisateur->donnees()->timeTokenUser)) {
     Redirect::to('index.php');
+} else {
+    include 'includes/pages/header.php';
+    include 'includes/pages/navbar.php';
 }
 
 if (Input::existe()) {
@@ -42,20 +45,26 @@ if (Input::existe()) {
                     $erreur = true;
                     $erreurPassword = true;
                 } else {
-                    $utilisateur->miseAJour([
-                        'pwdUser' => Hash::creer(Input::get('pwdUserNouveau'))
-                    ]);
-                    Session::flash('home', 'Votre mot de passe a été changé !');
-                    switch ($utilisateur->donnees()->profilUser) {
-                        case 1:
-                            Redirect::to('accueilEleve.php');
-                            break;
-                        case 2:
-                            Redirect::to('accueilProfesseur.php');
-                            break;
-                        default:
-                            Redirect::to('index.php');
-                            break;
+                    try {
+                        $utilisateur->miseAJour([
+                            'pwdUser' => Hash::creer(Input::get('pwdUserNouveau'))
+                        ]);
+                    } catch (Exception $e) {
+                        if (Config::get('env') == 'dev') {
+                            die("Échec lors de la connexion : " . $e->getMessage());
+                        }
+                        Session::flash('home', 'Votre mot de passe a été changé !');
+                        switch ($utilisateur->donnees()->profilUser) {
+                            case 1:
+                                Redirect::to('accueilEleve.php');
+                                break;
+                            case 2:
+                                Redirect::to('accueilProfesseur.php');
+                                break;
+                            default:
+                                Redirect::to('index.php');
+                                break;
+                        }
                     }
                 }
             } else {
@@ -141,7 +150,7 @@ if (Input::existe()) {
             <div class="row">
                 <div class="col-md-6 col-md-offset-3 alert alert-danger fade in">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>Erreur!</strong> </br>
+                    <strong>Erreur!</strong></br>
                     <?php
                     if ($erreurSaisie) {
                         foreach ($validation->erreurs() as $erreurSaisie) {
