@@ -132,8 +132,10 @@ if (Input::existe()) {
                     <strong>Erreur!</strong> </br>
                     <?php
                     if ($erreurSaisie) {
-                        foreach ($validation->erreurs() as $erreurSaisie) {
-                            echo $erreurSaisie . '</br>';
+                        if (isset($validation)) {
+                            foreach ($validation->erreurs() as $erreurSaisie) {
+                                echo $erreurSaisie . '</br>';
+                            }
                         }
                     }
                     if ($erreurInsertion) {
