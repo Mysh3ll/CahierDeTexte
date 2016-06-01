@@ -123,7 +123,7 @@ class DB
 
     public function miseAJour($table, $idUser, $champs)
     {
-        $selection .= '';
+        $selection = '';
         $compteur = 1;
 
         foreach ($champs as $nom => $champ) {
