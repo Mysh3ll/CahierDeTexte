@@ -53,18 +53,19 @@ if (Input::existe()) {
                         if (Config::get('env') == 'dev') {
                             die("Échec lors de la connexion : " . $e->getMessage());
                         }
-                        Session::flash('home', 'Votre mot de passe a été changé !');
-                        switch ($utilisateur->donnees()->profilUser) {
-                            case 1:
-                                Redirect::to('accueilEleve.php');
-                                break;
-                            case 2:
-                                Redirect::to('accueilProfesseur.php');
-                                break;
-                            default:
-                                Redirect::to('index.php');
-                                break;
-                        }
+
+                    }
+                    Session::flash('home', 'Votre mot de passe a été changé !');
+                    switch ($utilisateur->donnees()->profilUser) {
+                        case 1:
+                            Redirect::to('accueilEleve.php');
+                            break;
+                        case 2:
+                            Redirect::to('accueilProfesseur.php');
+                            break;
+                        default:
+                            Redirect::to('index.php');
+                            break;
                     }
                 }
             } else {
@@ -76,88 +77,89 @@ if (Input::existe()) {
 }
 ?>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="panel panel-login">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <a href="index.php" id="password-form-link">Mise à jour mot de passe</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-login">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <a href="index.php" id="password-form-link">Mise à jour mot de passe</a>
+                            </div>
                         </div>
+                        <hr>
                     </div>
-                    <hr>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-12">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
 
-                            <!-- DEBUT FORMULAIRE S'ENREGISTRER -->
-                            <form id="password-form" action="#" method="post" role="form">
-                                <div class="form-group">
-                                    <input type="password" name="pwdUserActuel" id="pwdUserActuel" tabindex="1"
-                                           class="form-control" placeholder="Mot de passe actuel">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" name="pwdUserNouveau" id="pwdUserNouveau" tabindex="2"
-                                           class="form-control" placeholder="Nouveau mot de passe">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" name="confirm-pwdUserNouveau" id="confirm-pwdUserNouveau"
-                                           tabindex="3"
-                                           class="form-control" placeholder="Confirmation du nouveau mot de passe">
-                                </div>
-                                <div class="form-group">
-                                    <input type="hidden" name="tokenUser" id="tokenUser" tabindex="4"
-                                           class="form-control" value="<?php echo Token::generer(); ?>">
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-sm-6 col-sm-offset-3">
-                                            <input type="submit" name="enregistrement-submit" id="enregistrement-submit"
-                                                   tabindex="6" class="form-control btn btn-register"
-                                                   value="Modifier">
+                                <!-- DEBUT FORMULAIRE S'ENREGISTRER -->
+                                <form id="password-form" action="#" method="post" role="form">
+                                    <div class="form-group">
+                                        <input type="password" name="pwdUserActuel" id="pwdUserActuel" tabindex="1"
+                                               class="form-control" placeholder="Mot de passe actuel">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="pwdUserNouveau" id="pwdUserNouveau" tabindex="2"
+                                               class="form-control" placeholder="Nouveau mot de passe">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="confirm-pwdUserNouveau" id="confirm-pwdUserNouveau"
+                                               tabindex="3"
+                                               class="form-control" placeholder="Confirmation du nouveau mot de passe">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="hidden" name="tokenUser" id="tokenUser" tabindex="4"
+                                               class="form-control" value="<?php echo Token::generer(); ?>">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
+                                                <input type="submit" name="enregistrement-submit"
+                                                       id="enregistrement-submit"
+                                                       tabindex="6" class="form-control btn btn-register"
+                                                       value="Modifier">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </form>
-                            <!-- FIN FORMULAIRE S'ENREGISTRER -->
+                                </form>
+                                <!-- FIN FORMULAIRE S'ENREGISTRER -->
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- DEBUT MESSAGES ERREURS -->
-    <?php if ($erreur): ?>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-md-offset-3 alert alert-danger fade in">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>Erreur!</strong>
-                    <?php
-                    if ($erreurSaisie) {
-                        if (isset($validation)) {
-                            foreach ($validation->erreurs() as $erreurSaisie) {
-                                echo $erreurSaisie . '</br>';
+        <!-- DEBUT MESSAGES ERREURS -->
+        <?php if ($erreur): ?>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3 alert alert-danger fade in">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Erreur!</strong>
+                        <?php
+                        if ($erreurSaisie) {
+                            if (isset($validation)) {
+                                foreach ($validation->erreurs() as $erreurSaisie) {
+                                    echo $erreurSaisie . '</br>';
+                                }
                             }
                         }
-                    }
-                    if ($erreurInsertion) {
-                        Session::flash('enregistrementPasBon', 'Problème lors de l\'insertion des données.');
-                        echo Session::flash('enregistrementPasBon');
-                    }
-                    if ($erreurPassword) {
-                        Session::flash('motDePassePasBon', 'Mot de passe incorrect !');
-                        echo Session::flash('motDePassePasBon');
-                    }
-                    ?>
+                        if ($erreurInsertion) {
+                            Session::flash('enregistrementPasBon', 'Problème lors de l\'insertion des données.');
+                            echo Session::flash('enregistrementPasBon');
+                        }
+                        if ($erreurPassword) {
+                            Session::flash('motDePassePasBon', 'Mot de passe incorrect !');
+                            echo Session::flash('motDePassePasBon');
+                        }
+                        ?>
+                    </div>
                 </div>
             </div>
-        </div>
-    <?php endif; ?>
-    <!-- FIN MESSAGES ERREURS -->
+        <?php endif; ?>
+        <!-- FIN MESSAGES ERREURS -->
 
-</div>
+    </div>
 
 <?php include 'includes/pages/footer.php'; ?>
