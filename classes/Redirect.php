@@ -26,12 +26,12 @@ class Redirect
         }
     }
 
-    public static function setMessage($string)
+    public function setMessage($string)
     {
-        self::$_message = $string;
+        $this->_message = $string;
     }
 
-    public static function getMessage() {
-        return self::$_message;
+    public function getMessage() {
+        return $this->_message;
     }
 }
