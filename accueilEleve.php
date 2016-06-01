@@ -25,13 +25,17 @@ if ($utilisateur->etreLogger() && $utilisateur->donnees()->profilUser == 1 && di
     ?>
 
     <div class="container">
-        <div class="jumbotron">
-            <div class="page-header">
-                <h1>Bonjour
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="jumbotron">
+                    <div class="page-header">
+                        <h1>Bonjour
                     <span
                         class="text-capitalize text-primary"><?php echo protection($utilisateur->donnees()->prenomUser) . " " . protection($utilisateur->donnees()->nomUser); ?></a></span>
-                    !
-                </h1>
+                            !
+                        </h1>
+                    </div>
+                </div>
             </div>
         </div>
     </div><!-- /.container -->

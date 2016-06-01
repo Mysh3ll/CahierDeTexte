@@ -14,7 +14,7 @@ class User
         $_cookieNom,
         $_etreLogger;
 
-    public function __construct($user)
+    public function __construct($user = null)
     {
         $this->_db = DB::getInstance();
         $this->_sessionNom = Config::get('session/session_nom');
@@ -113,7 +113,7 @@ class User
 
     public function existe()
     {
-        return (!empty($this->_donnees() ? true : false));
+        return (!empty($this->donnees() ? true : false));
     }
 
     public function logout()
