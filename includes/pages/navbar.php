@@ -19,13 +19,13 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-center">
-                <li class="active "><a href="accueilEleve.php"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
-                <li><a href="miseAJour.php"><span class="glyphicon glyphicon-user"></span> Modifier son profil</a></li>
-                <li><a href="changerPassword.php"><span class=" glyphicon glyphicon-cog"></span> Modifier mot de passe</a></li>
+                <li class="active "><a href="/accueilEleve.php"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
+                <li><a href="/miseAJour.php"><span class="glyphicon glyphicon-user"></span> Modifier son profil</a></li>
+                <li><a href="/changerPassword.php"><span class=" glyphicon glyphicon-cog"></span> Modifier mot de passe</a></li>
             </ul>
             <!-- BEGIN # DECONNECT -->
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Se Déconnecter</a></li>
+                <li><a href="/logout.php"><span class="glyphicon glyphicon-log-out"></span> Se Déconnecter</a></li>
             </ul>
             <!-- END # DECONNECT -->
         </div><!--/.nav-collapse -->
