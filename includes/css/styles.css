@@ -6,7 +6,7 @@ body {
     display: block;
 }
 
-#register-form, update-form, password-form {
+#register-form, #update-form, #password-form {
     display: block;
 }
 
