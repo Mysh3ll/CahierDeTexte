@@ -8,7 +8,7 @@
  */
 class Redirect
 {
-    private $_message = null;
+    private static $_message = null;
     public static function to($location = null)
     {
         if ($location) {
@@ -26,12 +26,12 @@ class Redirect
         }
     }
 
-    public function setMessage($string)
+    public static function setMessage($string)
     {
-        $this->_message = $string;
+        self::$_message = $string;
     }
 
-    public function getMessage() {
-        return $this->_message;
+    public static function getMessage() {
+        return self::$_message;
     }
 }
