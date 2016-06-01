@@ -76,22 +76,6 @@ if (Input::existe()) {
 }
 ?>
 
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-
-    <title>Cahier de texte</title>
-    <meta name="description" content="Cahier de texte">
-    <meta name="author" content="Michel Pompas">
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" media="screen" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="includes/css/styles.css">
-
-</head>
-
-<body>
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -150,11 +134,13 @@ if (Input::existe()) {
             <div class="row">
                 <div class="col-md-6 col-md-offset-3 alert alert-danger fade in">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>Erreur!</strong></br>
+                    <strong>Erreur!</strong>
                     <?php
                     if ($erreurSaisie) {
-                        foreach ($validation->erreurs() as $erreurSaisie) {
-                            echo $erreurSaisie . '</br>';
+                        if (isset($validation)) {
+                            foreach ($validation->erreurs() as $erreurSaisie) {
+                                echo $erreurSaisie . '</br>';
+                            }
                         }
                     }
                     if ($erreurInsertion) {
@@ -174,10 +160,4 @@ if (Input::existe()) {
 
 </div>
 
-<!-- Latest compiled and minified JS -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<!--<script src="includes/js/scripts.js"></script>-->
-
-</body>
-</html>
+<?php include 'includes/pages/footer.php'; ?>
