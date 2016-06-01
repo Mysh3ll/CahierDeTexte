@@ -80,46 +80,48 @@ if (Input::existe()) {
     }
 
     if (!empty(Input::get('enregistrement-submit'))) {
-        if ($validation->valider()) {
-            //echo "ok!";
-            $utilisateur = DB::getInstance();
-
-            try {
-                $utilisateur->insertion('Utilisateur', [
-                    'prenomUser'    => Input::get('prenomUser'),
-                    'nomUser'       => Input::get('nomUser'),
-                    'mailUser'      => Input::get('mailUser'),
-                    'pwdUser'       => Hash::creer(Input::get('pwdUser')),
-                    'tokenUser'     => Input::get('tokenUser'),
-                    'timeTokenUser' => date('Y-m-d H:i:s'),
-                    'profilUser'    => 1,
-                    'idStatut'      => 1
-
-                ]);
-            } catch (PDOException $e) {
-                if (Config::get('env') == 'dev') {
-                    $erreurPdo = "Échec lors de l'insertion des données : " . $e->getMessage();
-                    Redirect::setMessage($erreurPdo);
-                    Redirect::to(404);
-                    die();
-                } else {
-                    die();
+        if (isset($validation)) {
+            if ($validation->valider()) {
+                //echo "ok!";
+                $utilisateur = DB::getInstance();
+    
+                try {
+                    $utilisateur->insertion('Utilisateur', [
+                        'prenomUser'    => Input::get('prenomUser'),
+                        'nomUser'       => Input::get('nomUser'),
+                        'mailUser'      => Input::get('mailUser'),
+                        'pwdUser'       => Hash::creer(Input::get('pwdUser')),
+                        'tokenUser'     => Input::get('tokenUser'),
+                        'timeTokenUser' => date('Y-m-d H:i:s'),
+                        'profilUser'    => 1,
+                        'idStatut'      => 1
+    
+                    ]);
+                } catch (PDOException $e) {
+                    if (Config::get('env') == 'dev') {
+                        $erreurPdo = "Échec lors de l'insertion des données : " . $e->getMessage();
+                        Redirect::setMessage($erreurPdo);
+                        Redirect::to(404);
+                        die();
+                    } else {
+                        die();
+                    }
                 }
-            }
-            if (!$utilisateur->erreur()) {
-                $sessionEnregistrement = true;
-                Session::flash('enregistrementOk', 'L\'enregistrement c\'est correctement effectué.');
+                if (!$utilisateur->erreur()) {
+                    $sessionEnregistrement = true;
+                    Session::flash('enregistrementOk', 'L\'enregistrement c\'est correctement effectué.');
+                } else {
+                    $erreur = true;
+                    $erreurInsertion = true;
+                }
+    
             } else {
                 $erreur = true;
-                $erreurInsertion = true;
+                $erreurSaisie = true;
+    //        foreach ($validation->erreurs() as $erreur) {
+    //            echo $erreur . '</br>';
+    //        }
             }
-
-        } else {
-            $erreur = true;
-            $erreurSaisie = true;
-//        foreach ($validation->erreurs() as $erreur) {
-//            echo $erreur . '</br>';
-//        }
         }
     }
 }
@@ -217,8 +219,10 @@ if (Input::existe()) {
                     <strong>Erreur!</strong> </br>
                     <?php
                     if ($erreurSaisie) {
-                        foreach ($validation->erreurs() as $erreurSaisie) {
-                            echo $erreurSaisie . '</br>';
+                        if (isset($validation)) {
+                            foreach ($validation->erreurs() as $erreurSaisie) {
+                                echo $erreurSaisie . '</br>';
+                            }
                         }
                     }
                     if ($erreurInsertion) {
