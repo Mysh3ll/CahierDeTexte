@@ -19,7 +19,7 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-center">
-                <li class="active "><a href="accueilEleve.php"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
+                <li class="active "><a href="<?php  if ($utilisateur->donnees()->profilUser == 1) {echo 'accueilEleve.php';} else {echo 'accueilProfesseur.php';}?>"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
                 <li><a href="miseAJour.php"><span class="glyphicon glyphicon-user"></span> Modifier son profil</a></li>
                 <li><a href="changerPassword.php"><span class=" glyphicon glyphicon-cog"></span> Modifier mot de passe</a></li>
             </ul>
