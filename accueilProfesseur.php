@@ -7,20 +7,61 @@
  */
 
 require_once 'config/init.php';
-if (Session::existe('home')) {
-    echo '<p>' . Session::flash('home') . '</p>';
+include 'includes/pages/header.php';
+
+if (Session::existe('home')) { ?>
+    <div class="container">
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            <?php echo Session::flash('home') ?>
+        </div>
+    </div>
+    <?php
 }
 $utilisateur = new User();
-if ($utilisateur->etreLogger() && $utilisateur->donnees()->profilUser == 2 && diffDate($utilisateur->donnees()->timeTokenUser)) { ?>
-    <p>Bonjour <a
-            href="#"><?php echo protection($utilisateur->donnees()->prenomUser) . " " . protection($utilisateur->donnees()->nomUser); ?></a>!
-    </p>
-    <ul>
-        <li><a href="logout.php">Se déconnecter</a></li>
-        <li><a href="miseAJour.php">Modifier son profil</a></li>
-        <li><a href="changerPassword.php">Modifier mot de passe</a></li>
-    </ul>
+if ($utilisateur->etreLogger() && $utilisateur->donnees()->profilUser == 2 && diffDate($utilisateur->donnees()->timeTokenUser)) {
+    include 'includes/pages/navbar.php';
+    ?>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="jumbotron">
+                    <div class="page-header">
+                        <h1>Bonjour
+                    <span
+                        class="text-capitalize text-primary"><?php echo protection($utilisateur->donnees()->prenomUser) . " " . protection($utilisateur->donnees()->nomUser); ?></a></span>
+                            !
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.container -->
+
+    <div class="container-fluid">
+
+        <div class="starter-template">
+            <h1>Bootstrap starter template</h1>
+            <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text
+                and a
+                mostly barebones HTML document.</p>
+        </div>
+
+    </div><!-- /.container -->
+
     <?php
-} else {
-    echo "<p>Vous devez vous <a href='index.php'>connecter</a> ou <a href='enregistrer.php'>vous enregistrer.</a>";
-}
+} else { ?>
+    <div class="bs-callout bs-callout-danger">
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            Vous devez vous <strong><a href='index.php'>connecter</a></strong> ou <strong><a href='enregistrer.php'>vous
+                    enregistrer.</a></strong>
+        </div>
+    </div>
+<?php }
+
+include 'includes/pages/footer.php';
+?>
